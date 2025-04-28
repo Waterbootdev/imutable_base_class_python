@@ -1,4 +1,4 @@
-import inspect
+
 from unlocked_context import DefaultUnlockedContext
 
 class ImmutableBase:
@@ -9,14 +9,14 @@ class ImmutableBase:
 
     def __init__(self, unlocked_context_class= DefaultUnlockedContext):
 
-        ImmutableBase.__validate_class(unlocked_context_class)
+        ImmutableBase.__validate_class_or_raise_exception(unlocked_context_class)
         
         self._unlocked_context_class = unlocked_context_class
-        
+      
         super().__setattr__(ImmutableBase.__LOCKED_ATTRIBUTE__, ImmutableBase.__LOCKED__)
 
     @staticmethod
-    def __validate_class(unlocked_context_class):
+    def __validate_class_or_raise_exception(unlocked_context_class):
         
         if unlocked_context_class is None:
             raise ValueError("The 'unlocked_context_class' must not be None.")
@@ -24,13 +24,12 @@ class ImmutableBase:
         if not isinstance(unlocked_context_class, type):
             raise TypeError("The 'unlocked_context_class' must be a class type.")
 
-        if ImmutableBase.__get_number_params_without_self(unlocked_context_class) != 1:
-            raise TypeError(
-                "The 'unlocked_context_class' must have exactly one required parameter (besides 'self')."
-            )
+        if ImmutableBase.__get_number_parameters_without_self(unlocked_context_class) != 1:
+            raise TypeError("The 'unlocked_context_class' must have exactly one required parameter (besides 'self').")
 
     @staticmethod
-    def __get_number_params_without_self(unlocked_context_class):
+    def __get_number_parameters_without_self(unlocked_context_class):
+        import inspect
         return len(inspect.signature(unlocked_context_class.__init__).parameters.values()) - 1
 
     def __set__locked(self, value):

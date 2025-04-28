@@ -7,14 +7,15 @@ class DefaultUnlockedContext:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.instance.lock()
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    
+    #def __exit__(self, exc_type, exc_val, exc_tb):
         # Immer wieder sperren, auch wenn eine Ausnahme im Block auftritt
-        self.instance.lock()
+        #self.instance.lock()
         # Wenn eine Ausnahme auftritt, wird sie hier weitergegeben
-        if exc_type is not None:
-            print(f"Exception occurred: {exc_val}")
+        #if exc_type is not None:
+            #print(f"Exception occurred: {exc_val}")
             # Falls du eine andere Logik hinzufügen möchtest:
             # return False, um die Ausnahme zu durchreichen, oder
             # True, um sie zu unterdrücken
             # Hier wird sie durchgereicht:
-            return False
+            #return False

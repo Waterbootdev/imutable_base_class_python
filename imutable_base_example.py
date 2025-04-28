@@ -4,7 +4,7 @@ class ImutableBaseExample(ImmutableBase):
 
     def __init__(self, name, alter, cache, status):
         super().__init__()
-
+        
         with self.unlocked():
             self.name = name
             self.alter = alter
@@ -12,8 +12,6 @@ class ImutableBaseExample(ImmutableBase):
         self._cache = cache
         self._status = status
 
-
-# Anwendung
 a = ImutableBaseExample("Anna", 30, "abc", "online")
 b = ImutableBaseExample("Bernd", 40, "xyz", "offline")
 
