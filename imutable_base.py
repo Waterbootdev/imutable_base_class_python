@@ -4,6 +4,8 @@ from unlocked_context import DefaultUnlockedContext
 class ImmutableBase:
 
     __LOCKED_ATTRIBUTE__ = "__locked"
+    __LOCKED__ = True
+    __UNLOCKED__ = False 
 
     def __init__(self, unlocked_context_class= DefaultUnlockedContext):
 
@@ -11,7 +13,7 @@ class ImmutableBase:
         
         self._unlocked_context_class = unlocked_context_class
         
-        super().__setattr__(ImmutableBase.__LOCKED_ATTRIBUTE__, True)
+        super().__setattr__(ImmutableBase.__LOCKED_ATTRIBUTE__, ImmutableBase.__LOCKED__)
 
     @staticmethod
     def __validate_class(unlocked_context_class):
@@ -46,10 +48,10 @@ class ImmutableBase:
         super().__setattr__(key, value)
 
     def lock(self):
-        self.__set__locked(True)
+        self.__set__locked(ImmutableBase.__LOCKED__)
 
     def unlock(self):
-        self.__set__locked(False)
+        self.__set__locked(ImmutableBase.__UNLOCKED__)
 
     def unlocked(self):
         return self._unlocked_context_class(self)
