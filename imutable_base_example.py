@@ -1,6 +1,6 @@
 from imutable_base import ImmutableBase
 
-class ExampleReadOnlyAndIntern(ImmutableBase):
+class ImutableBaseExample(ImmutableBase):
 
     def __init__(self, name, alter, cache, status):
         super().__init__()
@@ -14,8 +14,8 @@ class ExampleReadOnlyAndIntern(ImmutableBase):
 
 
 # Anwendung
-a = ExampleReadOnlyAndIntern("Anna", 30, "abc", "online")
-b = ExampleReadOnlyAndIntern("Bernd", 40, "xyz", "offline")
+a = ImutableBaseExample("Anna", 30, "abc", "online")
+b = ImutableBaseExample("Bernd", 40, "xyz", "offline")
 
 print(a.name)  # Anna
 print(b.name)  # Bernd
